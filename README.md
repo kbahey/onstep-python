@@ -38,4 +38,4 @@ The following sample programs are provided. Adapt them to your own needs:
                  then repeat. Useful to test thermal shutdown, mount accuracy ...etc.
 
 ## Author
-[https://baheyeldin.com](Khalid Baheyeldin)
+(https://baheyeldin.com)[Khalid Baheyeldin]
