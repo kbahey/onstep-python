@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 '''
-This is a program used for polar alignment
+This is a program to refine the polar alignment
 '''
 
 import time
@@ -9,9 +9,9 @@ import config
 p1 = '''
 This procedure will help get the mount polar aligned:
 
-1. Do a rough alignment using the polar config.scope.
+1. Do a rough alignment using the polar scope.
 2. Start KStars, connect INDI, and change Align to "Sync".
-3. Using Mount Model in KStars, do a 3-Star Align.
+3. Using Mount Model in KStars, do a 3 star (or more) Align.
 4. From INDI's align tab, record the polar align errors.
 5. Choose a bright star in KStars.
 6. In the Align Tab, change Align to "Slew to Target", then click "Capture"

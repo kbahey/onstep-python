@@ -26,7 +26,7 @@ menu = [
     (slew.slew,               'Slew to a star'),
     (report.report,           'Report status'),
     (backlash.backlash,       'Tune Backlash'),
-    (polar_align.polar_align, 'Polar Align - uses the :MP command'),
+    (polar_align.polar_align, 'Refine Polar Alignment'),
     (batch_align.batch_align, 'Batch Align - upload 9 alignment points'),
     (stress_test.stress_test, 'Stress test - repeat long slews. Useful for testing driver/motor heating.'),
     (drift_test.drift_test,   'Drift Test  - Test internal drift'),
