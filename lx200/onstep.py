@@ -176,7 +176,7 @@ class onstep:
     rc = self.scope.recv()
     if rc == '0':
       return rc, 'Goto is possible'
-    elif rc == '1': 
+    elif rc == '1':
       return rc, 'below the horizon limit'
     elif rc == '2':
       return rc, 'above overhead limit'
@@ -203,7 +203,7 @@ class onstep:
     rc = self.scope.recv()
     if rc == '0':
       return rc, 'Goto is possible'
-    elif rc == '1': 
+    elif rc == '1':
       return rc, 'below the horizon limit'
     elif rc == '2':
       return rc, 'above overhead limit'
@@ -230,7 +230,7 @@ class onstep:
     rc = self.scope.recv()
     if rc == '0':
       return rc, 'Goto is possible'
-    elif rc == '1': 
+    elif rc == '1':
       return rc, 'below the horizon limit'
     elif rc == '2':
       return rc, 'above overhead limit'
@@ -283,7 +283,7 @@ class onstep:
     return self.scope.recv().replace('#', '')
 
   def get_debug_equ(self):
-    # Get Equatorial values in decimal 
+    # Get Equatorial values in decimal
     self.scope.send(':GXFE#')
     return self.scope.recv().replace('#', '')
 

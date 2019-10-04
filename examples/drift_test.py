@@ -71,7 +71,7 @@ def drift_test(iterations = 60, interval = 10):
 
     dt = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     print('%s %s %s %s %s %s %s %s' % (dt, home, status, curr_ra, curr_de, equ, '{:6.3f}'.format(ra_arc_secs), '{:6.3f}'.format(de_arc_secs)))
-    
+
     try:
       time.sleep(interval)
     except KeyboardInterrupt:

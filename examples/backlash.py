@@ -95,7 +95,7 @@ def backlash():
       if backlash <= 999:
         print('Setting backlash to calculated value')
         config.scope.set_backlash(axis, backlash)
-        ans = input(test)
+        ans = input(msg_test)
       else:
         print('ERROR: backlash is more than maximum of 999')
     else:
