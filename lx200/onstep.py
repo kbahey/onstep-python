@@ -8,7 +8,7 @@ class onstep:
   def __init__(self, port = '', host = ''):
     # Check what mode we are in, serial USB or over TCP/IP
     if host == '' and port != '':
-      self.scope = lx200.tty.tty()
+      self.scope = lx200.tty.tty(port=port)
       self.scope.open()
     else:
       if port.isnumeric():
