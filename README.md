@@ -10,8 +10,14 @@ telescopes, and can easily be adaptable to them.
 
 ## Configuration
 Before using this API, you need to edit the examples/config.py.
-Change the date/time, UTC offset, Latitude, Longitude, and the HOST IP address of your OnStep's WiFi.
-Instead of WiFi, you can use a USB serial port.
+A few required changes are needed in the examples/config.py:
+
+a. The name of your serial port (if it is different from the default /dev/ttyUSB0)
+b. The latitude and longitude (lat and lon)
+c. The UTC offset
+
+If you plan to use the WiFi instead of a serial USB cable, you need to change the HOST 
+parameter in the config.py file.
 
 ## Quick Start
 This method will present a menu for most of the example programs:
