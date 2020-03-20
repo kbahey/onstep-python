@@ -4,6 +4,7 @@ Do a 1 star align
 '''
 
 import os
+import time
 import config
 
 def align():
