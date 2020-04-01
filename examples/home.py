@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 '''
-This is the program used to end a test sequence. 
+This is the program used to end a test sequence.
 It displays the date/time, UTC offset, latitude and longitude
 It then issues the command to return the scope to the home position
 '''

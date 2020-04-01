@@ -12,8 +12,8 @@ azm_w = '190:00:00'
 azm_e = '170:00:00'
 
 num_iterations    = 20
-poll_duration     = 30
-tracking_duration = 30
+poll_duration     = 20
+tracking_duration = 20
 
 def print_status(status = ''):
   curr_alt = config.scope.get_alt()
@@ -46,6 +46,12 @@ def slew(target_alt, target_azm):
 def stress_test():
   count = 0
 
+  print('Starting tracking')
+  if config.scope.tracking_on() == '0':
+    print('Tracking failed')
+    time.sleep(3)
+    return
+
   while True:
     # Increment the iteration counter
     count = count + 1
@@ -59,13 +65,13 @@ def stress_test():
     print('Iteration: ' + str(count))
 
     # Switch between east of meridian and west of it, using azimuth
-    if count % 2: 
+    if count % 2:
       azm = azm_w
     else:
       azm = azm_e
 
     # Slew to target location
-    slew(config.scope, alt, azm)
+    slew(alt, azm)
 
     slew_end = False
     # Check for end of slew
@@ -74,11 +80,11 @@ def stress_test():
       try:
         # Check if the slew ended
         config.scope.update_status()
-        if config.scope.is_slewing is False and scope.is_tracking is True:
+        if config.scope.is_slewing is False and config.scope.is_tracking is True:
           # Slew ended
           slew_end = True
 
-        print_status(config.scope, 'SLW')
+        print_status('SLW')
         time.sleep(poll_duration)
 
       except KeyboardInterrupt:
@@ -87,5 +93,5 @@ def stress_test():
         return
 
     # Scope now tracking
-    print_status(config.scope, 'TRK')
+    print_status('TRK')
     time.sleep(tracking_duration)

@@ -17,7 +17,7 @@ def report(interval = 10):
 
     if config.scope.is_slewing is True:
       status = 'SLW'
-      
+
     if config.scope.is_tracking is True:
       status = 'TRK'
 
@@ -26,7 +26,7 @@ def report(interval = 10):
 
     dt = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     print('%s %s %s %s' % (dt, status, curr_ra, curr_de))
-    
+
     try:
       time.sleep(interval)
     except KeyboardInterrupt:

@@ -70,18 +70,18 @@ def batch_align():
   config.scope.send_str(':SX0C,06:00:54#')
   config.scope.send_str(':SX0D,44:56:53#')
   config.scope.send_str(':SX0E,-1#')
-  
+
   print('Triggering align')
   # Trigger align
   config.scope.send_str(':SX09,1#')
 
   print('Align status: ' + str(config.scope.get_align_status()))
-  
+
   count = 0
   while count < 30:
     ra = config.scope.get_ra()
     de = config.scope.get_de()
-  
+
     cor_azm = config.scope.get_cor_azm()
     cor_alt = config.scope.get_cor_alt()
     cor_do  = config.scope.get_cor_do()
