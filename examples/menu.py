@@ -21,15 +21,15 @@ import drift_test
 
 menu = [
     (init.init,               'Initialize - sets Coordinates, UTC offset, Date/Time'),
-    (home.home,               'Return Home'),
-    (align.align,             '1 Star Align'),
     (slew.slew,               'Slew to a star'),
     (report.report,           'Report status'),
-    (backlash.backlash,       'Tune Backlash'),
-    (polar_align.polar_align, 'Refine Polar Alignment'),
+    (drift_test.drift_test,   'Drift Test  - Test internal drift'),
     (batch_align.batch_align, 'Batch Align - upload 9 alignment points'),
     (stress_test.stress_test, 'Stress test - repeat long slews. Useful for testing driver/motor heating.'),
-    (drift_test.drift_test,   'Drift Test  - Test internal drift'),
+    (polar_align.polar_align, 'Refine Polar Alignment'),
+    (backlash.backlash,       'Tune Backlash'),
+    (home.home,               'Return Home'),
+    (align.align,             '1 Star Align'),
     (sys.exit,                'Exit'),
   ]
 
