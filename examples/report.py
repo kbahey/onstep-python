@@ -10,9 +10,6 @@ import config
 def report(interval = 10):
 
   while True:
-    curr_ra = config.scope.get_ra()
-    curr_de = config.scope.get_de()
-
     status = '---'
 
     if config.scope.is_slewing is True:
@@ -24,13 +21,17 @@ def report(interval = 10):
     if config.scope.is_home is True:
       status = 'HOM'
 
+    scope_tm = config.scope.get_time()
     dt = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-    print('%s %s %s %s' % (dt, status, curr_ra, curr_de))
+    curr_ra = config.scope.get_ra()
+    curr_de = config.scope.get_de()
+
+    print('%s %s %s %s %s' % (dt, status, scope_tm, curr_ra, curr_de))
     
     try:
       time.sleep(interval)
     except KeyboardInterrupt:
       print('Exiting ...')
-      time.sleep(3)
+      time.sleep(1)
       return
 
