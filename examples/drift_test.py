@@ -13,8 +13,7 @@ def drift_test(iterations = 60, interval = 10):
   ra_min = 0.0
   count = 0
 
-  print('Date       Time     St  RA       DE        Equ                   RA"/min DE"/min')
-
+  print('Date       Time            OnStep Time   Sidereal      St  RA       DE        Equ                  RA"/min DE"/min')
 
   while True:
     # Increment the iteration counter
@@ -26,6 +25,10 @@ def drift_test(iterations = 60, interval = 10):
 
     curr_ra = config.scope.get_ra()
     curr_de = config.scope.get_de()
+
+    local_tm    = config.scope.get_time(True)
+    sidereal_tm = config.scope.get_sidereal_time(True)
+    dt          = datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f')
 
     status = 'N/A'
     if config.scope.is_slewing is True:
@@ -68,8 +71,7 @@ def drift_test(iterations = 60, interval = 10):
       ra_arc_secs = ((ra_max - ra_min) / 0.000278) / (secs / 60)
       de_arc_secs = ((de_max - de_min) / 0.000278) / (secs / 60)
 
-    dt = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-    print('%s %s %s %s %s %s %s' % (dt, status, curr_ra, curr_de, equ, '{:6.3f}'.format(ra_arc_secs), '{:6.3f}'.format(de_arc_secs)))
+    print('%s %s %s %s %s %s %s %s %s' % (dt, local_tm, sidereal_tm, status, curr_ra, curr_de, equ, '{:6.3f}'.format(ra_arc_secs), '{:6.3f}'.format(de_arc_secs)))
     
     try:
       time.sleep(interval)
