@@ -367,9 +367,22 @@ class onstep:
     else:
       return False
 
-  def get_time(self):
+  def get_time(self, high_precision = False):
     # Get controller time
-    self.scope.send(':GL#')
+    if high_precision == True:
+      cmd = 'GLa'
+    else:
+      cmd = 'GL'
+    self.scope.send(':' + cmd + '#')
+    return self.scope.recv().replace('#', '')
+
+  def get_sidereal_time(self, high_precision = False):
+    # Get controller sidereal time
+    if high_precision == True:
+      cmd = 'GSa'
+    else:
+      cmd = 'GS'
+    self.scope.send(':' + cmd + '#')
     return self.scope.recv().replace('#', '')
 
   def set_horizon_limit(self, limit):
@@ -421,16 +434,24 @@ class onstep:
     self.scope.send(':GVN#')
     return self.scope.recv().replace('#', '')
 
-  def get_ra(self):
+  def get_ra(self, high_precision = False):
     # Get RA
+    if high_precision == True:
+      cmd = 'GRa'
+    else:
+      cmd = 'GR'
     self.update_status()
-    self.scope.send(':GR#')
+    self.scope.send(':' + cmd + '#')
     return self.scope.recv().replace('#', '')
 
-  def get_de(self):
+  def get_de(self, high_precision = False):
     # Get Declination
+    if high_precision == True:
+      cmd = 'GDa'
+    else:
+      cmd = 'GD'
     self.update_status()
-    self.scope.send(':GD#')
+    self.scope.send(':' + cmd + '#')
     return self.scope.recv().replace('#', '')
 
   def get_alt(self):
