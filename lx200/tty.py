@@ -19,7 +19,7 @@ class tty:
   def send(self, string):
     b = string.encode('utf-8')
     self.ser.write(b)
-    time.sleep(0.05)
+    time.sleep(0.001)
 
   def recv(self):
     output = ''
