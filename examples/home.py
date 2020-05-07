@@ -17,7 +17,7 @@ def home():
   print('Returning to home postion')
   if config.scope.return_home() == False:
     print('Return Home command failed')
-    time.sleep(3)
+    time.sleep(1)
     return
 
   while True:

@@ -33,7 +33,7 @@ def backlash():
   print('Starting tracking')
   if config.scope.tracking_on() == '0':
     print('Tracking failed')
-    time.sleep(3)
+    time.sleep(1)
     return
 
   print('Stopping tracking')

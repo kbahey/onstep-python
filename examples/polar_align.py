@@ -39,7 +39,7 @@ def polar_align():
   print('Slewing to assumed position')
   if config.scope.slew_polar() == False:
     print('Slew to assumed position failed')
-    time.sleep(3)
+    time.sleep(1)
     return
 
   # Center the star using Alt and Az only
@@ -50,7 +50,7 @@ def polar_align():
 
   if config.scope.return_home() == False:
     print('Return Home command failed')
-    time.sleep(3)
+    time.sleep(1)
     return
 
   print('Returning to home position')

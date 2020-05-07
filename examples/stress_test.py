@@ -25,7 +25,7 @@ def slew(target_alt, target_azm):
   config.scope.update_status()
   if config.scope.is_slewing is True:
     print('Scope already slewing')
-    time.sleep(3)
+    time.sleep(1)
     return
 
   rc = config.scope.set_target_azm(target_azm)
@@ -40,7 +40,7 @@ def slew(target_alt, target_azm):
   rc, msg = config.scope.slew_hor()
   if rc != '0':
     print('Slew failed: rc: ' + str(rc) + ', ' + msg)
-    time.sleep(3)
+    time.sleep(1)
     return
 
 def stress_test():
@@ -52,7 +52,7 @@ def stress_test():
     # Check if we reached the maximum count, and exit
     if count > num_iterations:
       print('Test completed')
-      time.sleep(3)
+      time.sleep(1)
       return
 
     # Start an iteration
@@ -83,7 +83,7 @@ def stress_test():
 
       except KeyboardInterrupt:
         print('Exiting ...')
-        time.sleep(3)
+        time.sleep(1)
         return
 
     # Scope now tracking

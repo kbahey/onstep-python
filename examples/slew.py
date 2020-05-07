@@ -26,6 +26,6 @@ def slew():
   rc, msg = config.scope.slew_equ()
   if rc != '0':
     print('Slew failed: rc: ' + str(rc) + ', ' + msg)
-    time.sleep(3)
+    time.sleep(1)
     return
 

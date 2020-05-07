@@ -12,7 +12,7 @@ def align():
   print('Start Align')
   if config.scope.align() == '0':
     print('Align failed')
-    time.sleep(3)
+    time.sleep(1)
     return
 
   rc = config.scope.set_target_ra(config.ra)

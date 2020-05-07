@@ -20,7 +20,7 @@ def drift_test(iterations = 60, interval = 10):
     count = count + 1
     # Check if we reached the maximum count, and exit
     if count > iterations:
-      time.sleep(3)
+      time.sleep(1)
       return
 
     curr_ra = config.scope.get_ra()
