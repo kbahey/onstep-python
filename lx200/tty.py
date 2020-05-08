@@ -7,6 +7,8 @@ import serial
 class tty:
 
   def __init__(self, port = '/dev/ttyUSB0', baud=9600):
+    self.send_wait = 0.050
+
     try:
       self.ser = serial.Serial(port, baud)
     except serial.SerialException as e:
@@ -19,7 +21,7 @@ class tty:
   def send(self, string):
     b = string.encode('utf-8')
     self.ser.write(b)
-    time.sleep(0.005)
+    time.sleep(self.send_wait)
 
   def recv(self):
     output = ''
