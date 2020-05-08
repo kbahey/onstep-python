@@ -22,7 +22,7 @@ def report(interval = 10):
       status = 'HOM'
 
     scope_tm = config.scope.get_time()
-    dt = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    dt = datetime.now().strftime('%H:%M:%S')
     curr_ra = config.scope.get_ra()
     curr_de = config.scope.get_de()
 
