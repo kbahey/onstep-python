@@ -2,6 +2,7 @@
 
 import lx200.tty
 import lx200.sock
+import time
 from datetime import datetime
 
 class onstep:
@@ -32,6 +33,9 @@ class onstep:
 
     # TODO Need to add variables for:
     # aligned or not
+
+  def set_send_wait(self, wait):
+    lx200.tty.send_wait = wait
 
   def align(self, num_stars = 1):
     # Align command
@@ -329,6 +333,7 @@ class onstep:
   def set_utc_offset(self, utc_offset):
     print('Setting UTC Offset to: ' + utc_offset)
     self.scope.send(':SG' + utc_offset + '#')
+    time.sleep(1)
     ret = self.scope.recv().replace('#', '')
     if ret == '1':
       return True
@@ -345,6 +350,7 @@ class onstep:
     date = t.strftime("%m/%d/%y")
     print('Setting date to: ' + date)
     self.scope.send(':SC' + date + '#')
+    time.sleep(1)
     ret = self.scope.recv().replace('#', '')
     if ret == '1':
       return True
@@ -358,9 +364,10 @@ class onstep:
 
   def set_time(self):
     t = datetime.now()
-    time = t.strftime('%H:%M:%S')
-    print('Setting time to: ' + time)
-    self.scope.send(':SL' + time + '#')
+    curr_time = t.strftime('%H:%M:%S')
+    print('Setting time to: ' + curr_time)
+    self.scope.send(':SL' + curr_time + '#')
+    time.sleep(1)
     ret = self.scope.recv().replace('#', '')
     if ret == '1':
       return True
@@ -387,6 +394,7 @@ class onstep:
 
   def set_horizon_limit(self, limit):
     self.scope.send(':Sh' + limit + '#')
+    time.sleep(1)
     ret = self.scope.recv()
     if ret == '1':
       return True
@@ -395,6 +403,7 @@ class onstep:
 
   def set_overhead_limit(self, limit):
     self.scope.send(':So' + limit + '#')
+    time.sleep(1)
     ret = self.scope.recv()
     if ret == '1':
       return True
@@ -404,6 +413,7 @@ class onstep:
   def set_longitude(self, longitude):
     print('Setting longitude to: ' + longitude)
     self.scope.send(':Sg' + longitude + '#')
+    time.sleep(2)
     ret = self.scope.recv().replace('#', '')
     if ret == '1':
       return True
@@ -418,6 +428,7 @@ class onstep:
   def set_latitude(self, latitude):
     print('Setting latitude to: ' + latitude)
     self.scope.send(':St' + latitude + '#')
+    time.sleep(2)
     ret = self.scope.recv().replace('#', '')
     if ret == '1':
       return True
