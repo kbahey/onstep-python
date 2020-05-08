@@ -13,7 +13,7 @@ def drift_test(iterations = 60, interval = 10):
   ra_min = 0.0
   count = 0
 
-  print('Time            OnStep Time   Sidereal      St  RA       DE        Equ                  RA"/min RADrMax DE"/min DEDrMax')
+  print('Time            OnStep Time   Sidereal      St  RA       DE        Equ                  RA"/min RA"Max DE"/min DE"Max')
 
   while True:
     # Increment the iteration counter
