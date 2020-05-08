@@ -13,7 +13,7 @@ def drift_test(iterations = 60, interval = 10):
   ra_min = 0.0
   count = 0
 
-  print('Date       Time            OnStep Time   Sidereal      St  RA       DE        Equ                  RA"/min DE"/min')
+  print('Time            OnStep Time   Sidereal      St  RA       DE        Equ                  RA"/min RADrMax DE"/min DEDrMax')
 
   while True:
     # Increment the iteration counter
@@ -28,7 +28,7 @@ def drift_test(iterations = 60, interval = 10):
 
     local_tm    = config.scope.get_time(True)
     sidereal_tm = config.scope.get_sidereal_time(True)
-    dt          = datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f')
+    dt          = datetime.now().strftime('%H:%M:%S.%f')
 
     status = 'N/A'
     if config.scope.is_slewing is True:
@@ -49,6 +49,12 @@ def drift_test(iterations = 60, interval = 10):
       time_start = datetime.now()
       ra_arc_secs = 0.0
       de_arc_secs = 0.0
+      ra_max_drift = 0.0
+      de_max_drift = 0.0
+      ra_drift = 0.0
+      de_drift = 0.0
+      ra_avg = 0.0
+      de_avg = 0.0
 
     else:
       # Record maximums and minimums
@@ -68,10 +74,20 @@ def drift_test(iterations = 60, interval = 10):
       secs = elapsed.seconds
 
       # calculate drift
-      ra_arc_secs = ((ra_max - ra_min) / 0.000278) / (secs / 60)
-      de_arc_secs = ((de_max - de_min) / 0.000278) / (secs / 60)
+      ra_drift = (ra_max - ra_min) / 0.000278
+      de_drift = (de_max - de_min) / 0.000278
 
-    print('%s %s %s %s %s %s %s %s %s' % (dt, local_tm, sidereal_tm, status, curr_ra, curr_de, equ, '{:6.3f}'.format(ra_arc_secs), '{:6.3f}'.format(de_arc_secs)))
+      ra_arc_secs = ra_drift / (secs / 60)
+      de_arc_secs = de_drift / (secs / 60)
+
+    # format results
+    ra_avg = '{:6.3f}'.format(ra_arc_secs)
+    de_avg = '{:6.3f}'.format(de_arc_secs)
+
+    ra_max_drift = '{:6.3f}'.format(ra_drift)
+    de_max_drift = '{:6.3f}'.format(de_drift)
+
+    print('%s %s %s %s %s %s %s %s %s %s %s' % (dt, local_tm, sidereal_tm, status, curr_ra, curr_de, equ, ra_avg, ra_max_drift, de_avg, de_max_drift))
     
     try:
       time.sleep(interval)
@@ -79,4 +95,3 @@ def drift_test(iterations = 60, interval = 10):
       print('Exiting ...')
       time.sleep(1)
       return
-
