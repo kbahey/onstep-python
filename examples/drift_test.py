@@ -53,8 +53,8 @@ def drift_test(iterations = 60, interval = 10):
       de_max_drift = 0.0
       ra_drift = 0.0
       de_drift = 0.0
-      ra_avg = 0.0
-      de_avg = 0.0
+      ra_drift_per_min = 0.0
+      de_drift_per_min = 0.0
 
     else:
       # Record maximums and minimums
@@ -81,13 +81,13 @@ def drift_test(iterations = 60, interval = 10):
       de_arc_secs = de_drift / (secs / 60)
 
     # format results
-    ra_avg = '{:6.3f}'.format(ra_arc_secs)
-    de_avg = '{:6.3f}'.format(de_arc_secs)
+    ra_drift_per_min = '{:6.2f}'.format(ra_arc_secs)
+    de_drift_per_min = '{:6.2f}'.format(de_arc_secs)
 
-    ra_max_drift = '{:6.3f}'.format(ra_drift)
-    de_max_drift = '{:6.3f}'.format(de_drift)
+    ra_max_drift = '{:6.2f}'.format(ra_drift)
+    de_max_drift = '{:6.2f}'.format(de_drift)
 
-    print('%s %s %s %s %s %s %s %s %s %s %s' % (dt, local_tm, sidereal_tm, status, curr_ra, curr_de, equ, ra_avg, ra_max_drift, de_avg, de_max_drift))
+    print('%s %s %s %s %s %s %s %s %s %s %s' % (dt, local_tm, sidereal_tm, status, curr_ra, curr_de, equ, ra_drift_per_min, ra_max_drift, de_drift_per_min, de_max_drift))
     
     try:
       time.sleep(interval)
