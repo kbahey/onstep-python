@@ -13,7 +13,7 @@ def drift_test(iterations = 60, interval = 10):
   ra_min = 0.0
   count = 0
 
-  print('Time            OnStep Time   Sidereal      St  RA       DE        Equ                  RA"/min RA"Max DE"/min DE"Max')
+  print('Time            OnStep Time   Sidereal      St  RA            DE        Equ                  RA"/min RA"Max DE"/min DE"Max')
 
   while True:
     # Increment the iteration counter
@@ -23,8 +23,9 @@ def drift_test(iterations = 60, interval = 10):
       time.sleep(1)
       return
 
-    curr_ra = config.scope.get_ra()
+    curr_ra = config.scope.get_ra(True) # High precision coordinates
     curr_de = config.scope.get_de()
+    equ_decimal  = config.scope.get_debug_equ()
 
     local_tm    = config.scope.get_time(True)
     sidereal_tm = config.scope.get_sidereal_time(True)
@@ -37,9 +38,8 @@ def drift_test(iterations = 60, interval = 10):
     if config.scope.is_tracking is True:
       status = 'TRK'
 
-    equ  = config.scope.get_debug_equ()
-    ra = float(equ.split(',')[0])
-    de = float(equ.split(',')[1])
+    ra = float(equ_decimal.split(',')[0])
+    de = float(equ_decimal.split(',')[1])
     if ra_min == 0.0:
       # First pass, initialize values
       ra_min = ra
@@ -87,7 +87,7 @@ def drift_test(iterations = 60, interval = 10):
     ra_max_drift = '{:6.2f}'.format(ra_drift)
     de_max_drift = '{:6.2f}'.format(de_drift)
 
-    print('%s %s %s %s %s %s %s %s %s %s %s' % (dt, local_tm, sidereal_tm, status, curr_ra, curr_de, equ, ra_drift_per_min, ra_max_drift, de_drift_per_min, de_max_drift))
+    print('%s %s %s %s %s %s %s %s %s %s %s' % (dt, local_tm, sidereal_tm, status, curr_ra, curr_de, equ_decimal, ra_drift_per_min, ra_max_drift, de_drift_per_min, de_max_drift))
     
     try:
       time.sleep(interval)
