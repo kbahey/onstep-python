@@ -25,8 +25,10 @@ def report(interval = 10):
     dt = datetime.now().strftime('%H:%M:%S')
     curr_ra = config.scope.get_ra()
     curr_de = config.scope.get_de()
+    curr_alt = config.scope.get_alt()
+    curr_azm = config.scope.get_azm()
 
-    print('%s %s %s %s %s' % (dt, status, scope_tm, curr_ra, curr_de))
+    print('%s %s %s %s %s %s %s' % (dt, status, scope_tm, curr_ra, curr_de, curr_alt, curr_azm))
     
     try:
       time.sleep(interval)
