@@ -2,19 +2,21 @@
 Test parameters
 '''
 # To use over WiFi, change the following
-HOST = '192.168.0.212'
-PORT = '9999'
+#HOST = '192.168.0.212'
+#PORT = '9999'
 
 # Or, to use over USB
-#HOST = ''
-#PORT = '/dev/ttyUSB0'
+HOST = ''
+# For FYSETC S6 boards
+#PORT = '/dev/ttyACM0'
+
+# For STM32 Blue Pill
+PORT = '/dev/ttyUSB0'
 
 # Location coordinates, change according to where you are
 # Conestoga Lake Conservation Area
-# lat = '+43*40'
-# lon = '080:43'
-lat = ''
-lon = ''
+lat = '+43*40'
+lon = '080:43'
 
 # Offset from UTC, which is the opposite sign of the time zone
 # Use +05 for EST/EDT
@@ -36,14 +38,20 @@ ovh_lim = '90'
 # Algol        '03:08:10' '+40*57:20'
 # Aldebaran    '04:35:55' '+16*30:29'
 # Menkalinan   '05:59:31' '+44*56:50'
+# Mintaka      '05:32:00' '-00*17:56' # On the celestial equator
+# Zawijah      '11:50:41' '+01*45:55' # Almost on the celestial equator
 # Alkaid       '13:47:32' '+49*18:48' # Circumpolar for most of northern latitudes
-# Dubhe        '11:03:43' '+61*45:03'
+# Dubhe        '11:03:43' '+61*45:03' # Circumpolar for most of northern latitudes
 
-# Coordinates
-ra = '13:47:32'
-de = '+49*18:48'
+# Coordinates for the star to slew to
+ra = '11:03:43'
+de = '+61*45:03'
 
+# Horizon coordinates
+alt = '+45:00:00'
+azm = '120:00:00'
 
+# ===========
 # Do not change anything below that line
 import sys
 import os
