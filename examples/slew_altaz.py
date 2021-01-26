@@ -15,7 +15,7 @@ def slew_altaz():
     print('Error turning tracking on: ', rc)
 
   rc = config.scope.set_target_alt(config.alt)
-  if rc == '1':
+  if rc == '0':
     print('Error setting target Alt: ', rc)
 
   rc = config.scope.set_target_azm(config.azm)
