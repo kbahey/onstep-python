@@ -12,9 +12,11 @@ telescopes, and can easily be adaptable to them.
 Before using this API, you need to edit the examples/config.py.
 A few required changes are needed in the examples/config.py:
 
-a. The name of your serial port (if it is different from the default /dev/ttyUSB0)
+a. How to connect to your controller? This can be over WiFi, or a serial port.
+   Note that for FYSETC S6 the port is /dev/ttyACM0, and for the Blue Pill it is
+   /dev/ttyUSB0
 b. The latitude and longitude (lat and lon)
-c. The UTC offset
+c. The UTC offset (utc)
 
 If you plan to use the WiFi instead of a serial USB cable, you need to change the HOST 
 parameter in the config.py file.
@@ -34,6 +36,7 @@ The following sample programs are provided. Adapt them to your own needs:
 * align.py       - This starts a 1-Star Alignment procedure (select its RA/DEC in config.py)
 * home.py        - Return home
 * slew.py        - Slew to a star
+* slew_altaz.py  - Slew to an Alt/Az position
 * backlash.py    - Adjust the backlash on a terrestrial object
 * polar_align.py - Do a polar alignment using the :MP method
 * drift_test.py  - Test if there is drift in RA (equatorial) and RA/DEC (Alt-Az)
