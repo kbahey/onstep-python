@@ -94,7 +94,7 @@ class onstep:
       self.is_slewing = True
       self.is_tracking = False
 
-    if 'N' in s and not 'n' in s:
+    if not 'n' in s and 'N' in s:
       self.is_slewing = False
       self.is_tracking = True
 
