@@ -24,5 +24,4 @@ class sock:
 
   def recv(self):
     data = self.sock.recv(MAX_LEN)
-    self.sock.close()
     return data.decode('utf-8')

@@ -3,7 +3,8 @@ Test parameters
 '''
 # To use over WiFi, change the following
 #HOST = '192.168.0.212'
-#PORT = '9999'
+# Persistent port. This can also be 9997
+#PORT = '9998'
 
 # Or, to use over USB
 HOST = ''
