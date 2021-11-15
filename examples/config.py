@@ -2,17 +2,17 @@
 Test parameters
 '''
 # To use over WiFi, change the following
-#HOST = '192.168.0.212'
+HOST = '192.168.0.212'
 # Persistent port. This can also be 9997
-#PORT = '9998'
+PORT = '9998'
 
 # Or, to use over USB
-HOST = ''
+#HOST = ''
 # For FYSETC S6 boards
 #PORT = '/dev/ttyACM0'
 
 # For STM32 Blue Pill
-PORT = '/dev/ttyUSB0'
+#PORT = '/dev/ttyUSB0'
 
 # Location coordinates, change according to where you are
 # Conestoga Lake Conservation Area
