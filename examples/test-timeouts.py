@@ -33,7 +33,14 @@ else:
 scope = onstep.onstep(host = HOST, port = PORT)
 
 # Execute commands
-for cmd in ('GD', 'GR', 'rG','rI','rM','rT','rb','FA','FG','FT','FM','FI'):
+for cmd in (
+  'GR','GD','Gc','GM','GT','Gt','Gg','GG','GL','GC','GVD','GVT','GVN','GVP',
+  'FA','F1A','F2A','F3A','F4A','F5A','F6A','F7A','F8A','F9A','FT','FM','FI',
+  'fA','f1A','f2A','f3A','f4A','f5A','f6A','f7A','f8A','f9A','fT','fM','fI',
+  'GX98','rG','rI','rM','rT','rb',
+  'GXY0','GXY1','GXY2','GXY3','GXY4','GXY5','GXY6','GXY7',
+  'SG-01',
+  ):
   start = time.time()
   r = scope.send_str(':' + cmd + '#')
   end = time.time()
