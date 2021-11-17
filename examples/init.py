@@ -18,47 +18,48 @@ import time
 from datetime import datetime
 import config
 
+WAIT_SECONDS = 0.3
 def init():
 
   if config.lat == '' or config.lon == '':
     print('Please change config.py to add lat and lon parameters')
-    time.sleep(1)
+    time.sleep(WAIT_SECONDS)
     return
 
   # Set the basic parameters
   if config.scope.set_date() == False:
     print('Set date failed')
-    time.sleep(1)
+    time.sleep(WAIT_SECONDS)
     return
 
   if config.scope.set_time() == False:
     print('Set time failed')
-    time.sleep(1)
+    time.sleep(WAIT_SECONDS)
     return
 
   if config.scope.set_utc_offset(config.utc) == False:
     print('Set UTC Offset failed')
-    time.sleep(1)
+    time.sleep(WAIT_SECONDS)
     return
 
   if config.scope.set_latitude(config.lat) == False:
     print('Set latitude failed')
-    time.sleep(1)
+    time.sleep(WAIT_SECONDS)
     return
 
   if config.scope.set_longitude(config.lon) == False:
     print('Set longitude failed')
-    time.sleep(1)
+    time.sleep(WAIT_SECONDS)
     return
 
   if config.scope.set_horizon_limit(config.hor_lim) == False:
     print('Set horizon limit failed')
-    time.sleep(1)
+    time.sleep(WAIT_SECONDS)
     return
 
   if config.scope.set_overhead_limit(config.ovh_lim) == False:
     print('Set overhead limit failed')
-    time.sleep(1)
+    time.sleep(WAIT_SECONDS)
     return
 
   # Display date, time, UTC offset, and latitude/longitude
@@ -72,6 +73,6 @@ def init():
   print('Starting tracking')
   if config.scope.tracking_on() == '0':
     print('Tracking failed')
-    time.sleep(1)
+    time.sleep(WAIT_SECONDS)
     return
 
