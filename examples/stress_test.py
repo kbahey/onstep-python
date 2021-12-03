@@ -15,10 +15,17 @@ num_iterations    = 20
 poll_duration     = 10
 tracking_duration = 30
 
-def print_status(status = ''):
+def print_status():
+  status = '---'
   curr_alt = config.scope.get_alt()
   curr_azm = config.scope.get_azm()
   dt = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+  if config.scope.is_slewing is True:
+    status = 'SLW'
+  if config.scope.is_tracking is True:
+    status = 'TRK'
+  if config.scope.is_home is True:
+    status = 'HOM'
   print('%s %s %s %s' % (dt, status, curr_alt, curr_azm,))
 
 def slew(target_alt, target_azm):
@@ -78,7 +85,7 @@ def stress_test():
           # Slew ended
           slew_end = True
 
-        print_status('---')
+        print_status()
         time.sleep(poll_duration)
 
       except KeyboardInterrupt:
@@ -87,5 +94,5 @@ def stress_test():
         return
 
     # Scope now tracking
-    print_status('TRK')
+    print_status()
     time.sleep(tracking_duration)
