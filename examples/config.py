@@ -15,9 +15,9 @@ PORT = '9998'
 #PORT = '/dev/ttyUSB0'
 
 # Location coordinates, change according to where you are
-# Conestoga Lake Conservation Area
-lat = '+43*40'
-lon = '080:43'
+# Kitchener Ontario, Canada
+lat = '+43*27'
+lon = '080:29'
 
 # Offset from UTC, which is the opposite sign of the time zone
 # Use +05 for EST/EDT
