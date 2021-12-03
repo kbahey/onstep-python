@@ -8,8 +8,8 @@ import config
 
 # Configuration parameters
 alt   = '+10:00:00'
-azm_w = '190:00:00'
-azm_e = '170:00:00'
+azm_w = '200:00:00'
+azm_e = '160:00:00'
 
 num_iterations    = 20
 poll_duration     = 10
