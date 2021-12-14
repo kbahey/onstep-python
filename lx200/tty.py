@@ -7,7 +7,7 @@ import serial
 class tty:
 
   def __init__(self, port = '/dev/ttyUSB0', baud=9600):
-    self.send_wait = 0.015
+    self.send_wait = 0.03
 
     try:
       self.ser = serial.Serial(port, baud)
