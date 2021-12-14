@@ -350,7 +350,7 @@ class onstep:
     date = t.strftime("%m/%d/%y")
     print('Setting date to: ' + date)
     self.scope.send(':SC' + date + '#')
-    time.sleep(2)
+    time.sleep(3)
     ret = self.scope.recv().replace('#', '')
     if ret == '1':
       return True
@@ -367,7 +367,7 @@ class onstep:
     curr_time = t.strftime('%H:%M:%S')
     print('Setting time to: ' + curr_time)
     self.scope.send(':SL' + curr_time + '#')
-    time.sleep(2)
+    time.sleep(3)
     ret = self.scope.recv().replace('#', '')
     if ret == '1':
       return True
