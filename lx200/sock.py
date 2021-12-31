@@ -8,6 +8,7 @@ class sock:
     self.sock = None
     self.host = ''
     self.port = ''
+    self.connected = False
 
   def connect(self, host = '', port = ''):
     self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -19,7 +20,10 @@ class sock:
     self.sock.connect((self.host, self.port))
 
   def send(self, msg):
-    self.connect(self.host, self.port)
+    if self.connected == False:
+      self.connect(self.host, self.port)
+      self.connected = True
+
     self.sock.sendall(msg.encode('utf-8'))
 
   def recv(self):
