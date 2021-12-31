@@ -98,6 +98,10 @@ class onstep:
       self.is_slewing = False
       self.is_tracking = True
 
+    if 'n' in s and not 'N' in s:
+      self.is_slewing = True
+      self.is_tracking = False
+
     if 'p' in s:
       self.is_parked = False
     if 'P' in s:
