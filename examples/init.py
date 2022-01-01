@@ -21,6 +21,9 @@ import config
 WAIT_SECONDS = 0.3
 def init():
 
+  ver = config.scope.get_version()
+  print('OnStep Version: %s' % (ver))
+
   if config.lat == '' or config.lon == '':
     print('Please change config.py to add lat and lon parameters')
     time.sleep(WAIT_SECONDS)
