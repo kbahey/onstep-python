@@ -21,18 +21,19 @@ import stress_test
 import drift_test
 
 menu = [
-    (init.init,               'Initialize - sets Coordinates, UTC offset, Date/Time'),
-    (home.home,               'Return to Home position'),
-    (report.report,           'Display mount status'),
-    (align.align,             '1 Star Align'),
-    (slew.slew,               'Slew to a star'),
-    (slew_altaz.slew_altaz,   'Slew to Alt/Azm'),
-    (drift_test.drift_test,   'Drift Test  - Test internal drift'),
-    (batch_align.batch_align, 'Batch Align - upload 9 alignment points'),
-    (stress_test.stress_test, 'Stress test - repeat long slews. Useful for testing driver/motor heating.'),
-    (polar_align.polar_align, 'Refine Polar Alignment'),
-    (backlash.backlash,       'Tune Backlash'),
-    (sys.exit,                'Exit'),
+    (init.init,                'Initialize - sets Coordinates, UTC offset, Date/Time'),
+    (home.home,                'Return to Home position'),
+    (report.report,            'Display mount status'),
+    (align.align,              '1 Star Align'),
+    (slew.slew,                'Slew to a star'),
+    (slew_altaz.slew_altaz,    'Slew to Alt/Azm'),
+    (drift_test.drift_test,    'Drift Test  - Test internal drift'),
+    (batch_align.batch_align,  'Batch Align - upload 9 alignment points'),
+    (stress_test.stress_test,  'Stress test - repeat long slews. Useful for testing driver/motor heating.'),
+    (polar_align.polar_align,  'Refine Polar Alignment'),
+    (backlash.backlash,        'Tune Backlash'),
+    (config.scope.dump_status, 'Dump Status'),
+    (sys.exit,                 'Exit'),
   ]
 
 while True:
