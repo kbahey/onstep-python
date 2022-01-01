@@ -22,7 +22,7 @@ class onstep:
     self.is_tracking = False
     self.is_parked = None
     self.type = None
-    self.position = None
+    self.home_wait = False
     self.is_home = None
     self.pier_side = None
     self.pec_recorded = False
@@ -33,6 +33,10 @@ class onstep:
 
     # TODO Need to add variables for:
     # aligned or not
+
+  def get_tracking_rate(self):
+    self.scope.send('#:GT#')
+    return self.scope.recv()
 
   def set_send_wait(self, wait):
     lx200.tty.send_wait = wait
@@ -64,22 +68,22 @@ class onstep:
 
   def dump_status(self):
     self.update_status()
-    print('Mount type: '    + str(self.type))
-    print('Slewing: '       + str(self.is_slewing))
-    print('Tracking: '      + str(self.is_tracking))
-    print('Parking: '       + str(self.is_parked))
-    print('Position: '      + str(self.position))
-    print('Pier-side: '     + str(self.pier_side))
-    print('PEC Recorded?: ' + str(self.pec_recorded))
-    print('PEC: '           + str(self.pec))
-    print('PPS: '           + str(self.pps))
+    print('Mount type:       ' + str(self.type))
+    print('Slewing:          ' + str(self.is_slewing))
+    print('Tracking:         ' + str(self.is_tracking))
+    print('Parking:          ' + str(self.is_parked))
+    print('Home:             ' + str(self.is_home))
+    print('Wait Home:        ' + str(self.home_wait))
+    print('Pier-side:        ' + str(self.pier_side))
+    print('PEC Recorded?:    ' + str(self.pec_recorded))
+    print('PEC:              ' + str(self.pec))
+    print('PPS:              ' + str(self.pps))
+    print('Pulse guide rate: ' + str(self.pulse_guide_rate))
+    print('Guide rate:       ' + str(self.guide_rate))
+    print('General error:    ' + str(self.general_error))
 
   def update_status(self):
     now = datetime.now()
-    #time_diff = now - self.last_update
-    # Update status only every so often, so as not to overload the controller
-    #if time_diff.seconds < 2:
-      #return
 
     self.last_update = now
 
@@ -117,7 +121,7 @@ class onstep:
       self.is_home = False
 
     if 'w' in s:
-      self.position = 'Waiting at home'
+      self.home_wait = True
 
     if 'G' in s:
       self.guide = 'Guide pulse active'
@@ -159,8 +163,9 @@ class onstep:
     if 'W' in s:
       self.pier_side = 'West'
 
-    # TODO provide last error
-    #reply[i++]='0'+lastError;
+    self.pulse_guide_rate = s[-4]
+    self.guide_rate = s[-3]
+    self.general_error = ord(s[-2])-ord('0')
 
   def set_target_azm(self, azm):
     self.scope.send(':Sz' + azm + '#')
@@ -233,7 +238,7 @@ class onstep:
     return rc
 
   def slew_polar(self):
-    # Slew to a the assumed position for polar alignment
+    # Slew to the assumed position for polar alignment
     self.scope.send(':MP#')
     rc = self.scope.recv()
     if rc == '0':
@@ -361,6 +366,18 @@ class onstep:
     else:
       return False
 
+  def set_utcdate(self):
+    t = datetime.utcnow()
+    date = t.strftime("%m/%d/%y")
+    print('Setting date to: ' + date)
+    self.scope.send(':SC' + date + '#')
+    time.sleep(1)
+    ret = self.scope.recv().replace('#', '')
+    if ret == '1':
+      return True
+    else:
+      return False
+
   def get_date(self):
     # Get controller date
     self.scope.send(':GC#')
@@ -372,6 +389,18 @@ class onstep:
     print('Setting time to: ' + curr_time)
     self.scope.send(':SL' + curr_time + '#')
     time.sleep(3)
+    ret = self.scope.recv().replace('#', '')
+    if ret == '1':
+      return True
+    else:
+      return False
+
+  def set_utctime(self):
+    t = datetime.utcnow()
+    curr_time = t.strftime('%H:%M:%S')
+    print('Setting time to: ' + curr_time)
+    self.scope.send(':SL' + curr_time + '#')
+    time.sleep(1)
     ret = self.scope.recv().replace('#', '')
     if ret == '1':
       return True
@@ -446,7 +475,7 @@ class onstep:
 
   def get_version(self):
     # Get OnStep version
-    self.scope.send(':GVN#')
+    self.scope.send('#:GVN#')
     return self.scope.recv().replace('#', '')
 
   def get_ra(self, high_precision = False):
