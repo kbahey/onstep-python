@@ -24,6 +24,8 @@ def init():
   ver = config.scope.get_version()
   print('OnStep Version: %s' % (ver))
 
+  print('Host: ' + config.HOST + ' Port: ' + str(config.PORT))
+
   if config.lat == '' or config.lon == '':
     print('Please change config.py to add lat and lon parameters')
     time.sleep(WAIT_SECONDS)
