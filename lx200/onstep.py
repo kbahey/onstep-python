@@ -29,14 +29,22 @@ class onstep:
     self.pec = None
     self.pps = False
 
+    # TODO Need to add variables for:
+    # - aligned or not
+    # - number of stars aligned
+
     self.last_update = datetime.now()
 
-    # TODO Need to add variables for:
-    # aligned or not
+  # Keep receiving from the port, until you get a terminating #
+  def recv_message(self):
+    s = self.scope.recv()
+    while s[-1] != '#':
+      s = s + self.scope.recv()
+    return s[:-1]
 
   def get_tracking_rate(self):
     self.scope.send('#:GT#')
-    return self.scope.recv()
+    return self.recv_message()
 
   def set_send_wait(self, wait):
     lx200.tty.send_wait = wait
@@ -49,7 +57,7 @@ class onstep:
   def get_align_status(self):
     # Align command
     self.scope.send('#:A?#')
-    return self.scope.recv().replace('#', '')
+    return self.recv_message()
 
   def tracking_on(self):
     # Turn on tracking
@@ -88,7 +96,7 @@ class onstep:
     self.last_update = now
 
     self.scope.send(':GU#')
-    s = self.scope.recv()
+    s = self.recv_message()
 
     if 'n' in s and 'N' in s:
       self.is_slewing = False
@@ -163,9 +171,9 @@ class onstep:
     if 'W' in s:
       self.pier_side = 'West'
 
-    self.pulse_guide_rate = s[-4]
-    self.guide_rate = s[-3]
-    self.general_error = ord(s[-2])-ord('0')
+    self.pulse_guide_rate = s[-3]
+    self.guide_rate = s[-2]
+    self.general_error = ord(s[-1])-ord('0')
 
   def set_target_azm(self, azm):
     self.scope.send(':Sz' + azm + '#')
@@ -281,7 +289,7 @@ class onstep:
       return '0'
 
     self.scope.send(':$B' + ax + str(value) + '#')
-    return self.scope.recv().replace('#', '')
+    return self.scope.recv()
 
   def get_backlash(self, axis = 1):
     # Get backlash for axis
@@ -293,12 +301,12 @@ class onstep:
       return '0'
 
     self.scope.send(':%B' + str(ax) + '#')
-    return self.scope.recv().replace('#', '')
+    return self.recv_message()
 
   def get_debug_equ(self):
     # Get Equatorial values in decimal 
     self.scope.send(':GXFE#')
-    return self.scope.recv().replace('#', '')
+    return self.recv_message()
 
   def get_ax_motor_pos(self, axis = 1):
     # Get Axis motor position
@@ -310,7 +318,7 @@ class onstep:
       return '0'
 
     self.scope.send(':GXF' + str(ax) + '#')
-    return self.scope.recv().replace('#', '')
+    return self.recv_message()
 
   def get_spd(self, axis = 1):
     # Get Axis motor position
@@ -322,28 +330,28 @@ class onstep:
       return '0'
 
     self.scope.send(':GXE' + str(ax) + '#')
-    return self.scope.recv().replace('#', '')
+    return self.recv_message()
 
   def get_cor_alt(self):
     # Get Altitude Correction
     self.scope.send(':GX02#')
-    return self.scope.recv().replace('#', '')
+    return self.recv_message()
 
   def get_cor_azm(self):
     # Get Azimuth Correction
     self.scope.send(':GX03#')
-    return self.scope.recv().replace('#', '')
+    return self.recv_message()
 
   def get_cor_do(self):
     # Get Cone Error Correction
     self.scope.send(':GX04#')
-    return self.scope.recv().replace('#', '')
+    return self.recv_message()
 
   def set_utc_offset(self, utc_offset):
     print('Setting UTC Offset to: ' + utc_offset)
     self.scope.send(':SG' + utc_offset + '#')
     time.sleep(1)
-    ret = self.scope.recv().replace('#', '')
+    ret = self.scope.recv()
     if ret == '1':
       return True
     else:
@@ -352,7 +360,7 @@ class onstep:
   def get_utc(self):
     # Get controller utc offset
     self.scope.send(':GG#')
-    return self.scope.recv().replace('#', '')
+    return self.recv_message()
 
   def set_date(self):
     t = datetime.now()
@@ -360,7 +368,7 @@ class onstep:
     print('Setting date to: ' + date)
     self.scope.send(':SC' + date + '#')
     time.sleep(3)
-    ret = self.scope.recv().replace('#', '')
+    ret = self.scope.recv()
     if ret == '1':
       return True
     else:
@@ -372,7 +380,7 @@ class onstep:
     print('Setting date to: ' + date)
     self.scope.send(':SC' + date + '#')
     time.sleep(1)
-    ret = self.scope.recv().replace('#', '')
+    ret = self.scope.recv()
     if ret == '1':
       return True
     else:
@@ -381,7 +389,7 @@ class onstep:
   def get_date(self):
     # Get controller date
     self.scope.send(':GC#')
-    return self.scope.recv().replace('#', '')
+    return self.recv_message()
 
   def set_time(self):
     t = datetime.now()
@@ -389,7 +397,7 @@ class onstep:
     print('Setting time to: ' + curr_time)
     self.scope.send(':SL' + curr_time + '#')
     time.sleep(3)
-    ret = self.scope.recv().replace('#', '')
+    ret = self.scope.recv()
     if ret == '1':
       return True
     else:
@@ -401,7 +409,7 @@ class onstep:
     print('Setting time to: ' + curr_time)
     self.scope.send(':SL' + curr_time + '#')
     time.sleep(1)
-    ret = self.scope.recv().replace('#', '')
+    ret = self.scope.recv()
     if ret == '1':
       return True
     else:
@@ -414,7 +422,7 @@ class onstep:
     else:
       cmd = 'GL'
     self.scope.send(':' + cmd + '#')
-    return self.scope.recv().replace('#', '')
+    return self.recv_message()
 
   def get_sidereal_time(self, high_precision = False):
     # Get controller sidereal time
@@ -423,7 +431,7 @@ class onstep:
     else:
       cmd = 'GS'
     self.scope.send(':' + cmd + '#')
-    return self.scope.recv().replace('#', '')
+    return self.recv_message()
 
   def set_horizon_limit(self, limit):
     self.scope.send(':Sh' + limit + '#')
@@ -447,7 +455,7 @@ class onstep:
     print('Setting longitude to: ' + longitude)
     self.scope.send(':Sg' + longitude + '#')
     time.sleep(2)
-    ret = self.scope.recv().replace('#', '')
+    ret = self.scope.recv()
     if ret == '1':
       return True
     else:
@@ -456,13 +464,13 @@ class onstep:
   def get_longitude(self):
     # Get controller utc offset
     self.scope.send(':Gg#')
-    return self.scope.recv().replace('#', '')
+    return self.recv_message()
 
   def set_latitude(self, latitude):
     print('Setting latitude to: ' + latitude)
     self.scope.send(':St' + latitude + '#')
     time.sleep(2)
-    ret = self.scope.recv().replace('#', '')
+    ret = self.scope.recv()
     if ret == '1':
       return True
     else:
@@ -471,12 +479,12 @@ class onstep:
   def get_latitude(self):
     # Get controller utc offset
     self.scope.send(':Gt#')
-    return self.scope.recv().replace('#', '')
+    return self.recv_message()
 
   def get_version(self):
     # Get OnStep version
     self.scope.send('#:GVN#')
-    return self.scope.recv().replace('#', '')
+    return self.recv_message()
 
   def get_ra(self, high_precision = False):
     # Get RA
@@ -486,25 +494,25 @@ class onstep:
       cmd = 'GR'
     self.update_status()
     self.scope.send(':' + cmd + '#')
-    return self.scope.recv().replace('#', '')
+    return self.recv_message()
 
   def get_de(self):
     cmd = 'GD'
     self.update_status()
     self.scope.send(':' + cmd + '#')
-    return self.scope.recv().replace('#', '')
+    return self.recv_message()
 
   def get_alt(self):
     # Get Alt
     self.update_status()
     self.scope.send(':GA#')
-    return self.scope.recv().replace('#', '')
+    return self.recv_message()
 
   def get_azm(self):
     # Get Azm
     self.update_status()
     self.scope.send(':GZ#')
-    return self.scope.recv().replace('#', '')
+    return self.recv_message()
 
   def return_home(self):
     # Move back to home position
