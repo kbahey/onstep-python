@@ -28,6 +28,9 @@ class onstep:
     self.pec_recorded = False
     self.pec = None
     self.pps = False
+    self.pulse_guide_rate = None
+    self.guide_rate = None
+    self.general_error = None
 
     # TODO Need to add variables for:
     # - aligned or not
