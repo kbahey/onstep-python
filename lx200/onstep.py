@@ -38,8 +38,8 @@ class onstep:
   # Keep receiving from the port, until you get a terminating #
   def recv_message(self):
     s = self.scope.recv()
-    while s[-1] != '#':
-      s = s + self.scope.recv()
+    while len(s) > 0 and s[-1] != '#':
+      s += self.scope.recv()
     return s[:-1]
 
   def get_tracking_rate(self):
