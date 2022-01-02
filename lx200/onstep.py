@@ -171,9 +171,10 @@ class onstep:
     if 'W' in s:
       self.pier_side = 'West'
 
-    self.pulse_guide_rate = s[-3]
-    self.guide_rate = s[-2]
-    self.general_error = ord(s[-1])-ord('0')
+    if len(s) > 3:
+      self.pulse_guide_rate = s[-3]
+      self.guide_rate = s[-2]
+      self.general_error = ord(s[-1])-ord('0')
 
   def set_target_azm(self, azm):
     self.scope.send(':Sz' + azm + '#')
@@ -366,8 +367,8 @@ class onstep:
     t = datetime.now()
     date = t.strftime("%m/%d/%y")
     print('Setting date to: ' + date)
-    self.scope.send(':SC' + date + '#')
-    time.sleep(3)
+    self.scope.send('#:SC' + date + '#')
+    time.sleep(4)
     ret = self.scope.recv()
     if ret == '1':
       return True
@@ -379,7 +380,7 @@ class onstep:
     date = t.strftime("%m/%d/%y")
     print('Setting date to: ' + date)
     self.scope.send(':SC' + date + '#')
-    time.sleep(1)
+    time.sleep(4)
     ret = self.scope.recv()
     if ret == '1':
       return True
@@ -408,7 +409,7 @@ class onstep:
     curr_time = t.strftime('%H:%M:%S')
     print('Setting time to: ' + curr_time)
     self.scope.send(':SL' + curr_time + '#')
-    time.sleep(1)
+    time.sleep(3)
     ret = self.scope.recv()
     if ret == '1':
       return True
