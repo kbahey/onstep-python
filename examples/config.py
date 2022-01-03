@@ -7,11 +7,12 @@ HOST = '192.168.0.212'
 PORT = '9998'
 
 # Or, to use over USB
+# For FYSETC S6 boards, uncomment the following two lines
 #HOST = ''
-# For FYSETC S6 boards
 #PORT = '/dev/ttyACM0'
 
-# For STM32 Blue Pill
+# For STM32 Blue Pill, uncomment the following two lines
+#HOST = ''
 #PORT = '/dev/ttyUSB0'
 
 # Location coordinates, change according to where you are
