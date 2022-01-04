@@ -32,6 +32,9 @@ def disp_info():
   ver = config.scope.get_version()
   print('OnStep Version: %s' % (ver))
 
+def do_exit():
+  config.scope.close()
+  sys.exit()
 
 menu = [
     ('i',  init.init,                'Initialize - sets Coordinates, UTC offset, Date/Time'),
@@ -46,7 +49,7 @@ menu = [
     ('pa', polar_align.polar_align,  'Refine Polar Alignment'),
     ('bl', backlash.backlash,        'Tune Backlash'),
     ('d',  config.scope.dump_status, 'Dump Status'),
-    ('x',  sys.exit,                 'Exit'),
+    ('x',  do_exit,                  'Exit'),
   ]
 
 while True:

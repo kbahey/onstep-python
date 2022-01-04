@@ -30,6 +30,8 @@ class sock:
       sys.stderr.write('Error opening host: %s, port %s - %s\n' % (host, port, str(e)))
       sys.exit(1)
 
+  def close(self):
+    self.sock.close()
 
   def send(self, msg):
     if self.connected == False:

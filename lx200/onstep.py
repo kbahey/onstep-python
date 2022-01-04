@@ -7,14 +7,17 @@ from datetime import datetime
 
 class onstep:
   def __init__(self, port = '', host = ''):
+    self.host = host
+    self.port = port
+
     # Check what mode we are in, serial USB or over TCP/IP
-    if host == '' and port != '':
-      self.scope = lx200.tty.tty(port=port)
+    if self.host == '' and self.port != '':
+      self.scope = lx200.tty.tty(port=self.port)
       self.scope.open()
     else:
       if port.isnumeric():
         self.scope = lx200.sock.sock()
-        self.scope.connect(host, int(port))
+        self.scope.connect(self.host, int(self.port))
       else:
         raise NonNumericPort
 
@@ -37,6 +40,9 @@ class onstep:
     # - number of stars aligned
 
     self.last_update = datetime.now()
+
+  def close(self):
+    self.scope.close()
 
   # Keep receiving from the port, until you get a terminating #
   def recv_message(self):
