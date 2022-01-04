@@ -62,5 +62,3 @@ sys.path.append(os.getcwd())
 import lx200.onstep as onstep
 # Create a scope object
 scope = onstep.onstep(host = HOST, port = PORT)
-
-print('OnStep Version: ' + str(scope.get_version()))
