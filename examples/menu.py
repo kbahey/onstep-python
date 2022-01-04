@@ -20,6 +20,19 @@ import polar_align
 import stress_test
 import drift_test
 
+def disp_info():
+  # Display the host and port
+  p = ''
+  if config.HOST != '':
+    p += 'Host ' + config.HOST + ' , '
+
+  p += 'Port ' + str(config.PORT)
+  print(p)
+
+  ver = config.scope.get_version()
+  print('OnStep Version: %s' % (ver))
+
+
 menu = [
     ('i',  init.init,                'Initialize - sets Coordinates, UTC offset, Date/Time'),
     ('h',  home.home,                'Return to Home position'),
@@ -37,6 +50,8 @@ menu = [
   ]
 
 while True:
+
+  disp_info()
 
   for row in menu:
     print('%s.\t%s' % (row[0], row[2]))
