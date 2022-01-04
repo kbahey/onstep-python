@@ -1,4 +1,5 @@
 import socket
+import sys
 
 MAX_LEN = 32
 
@@ -11,13 +12,24 @@ class sock:
     self.connected = False
 
   def connect(self, host = '', port = ''):
-    self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+    try:
+      self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    except socket.error as e:
+      sys.stderr.write('Error opening host: %s, port %s - %s\n' % (host, port, str(e)))
+      sys.exit(1)
+
     if host != '':
       self.host = host
     if port != '':
       self.port = port
 
-    self.sock.connect((self.host, self.port))
+    try:
+      self.sock.connect((self.host, self.port))
+    except socket.error as e:
+      sys.stderr.write('Error opening host: %s, port %s - %s\n' % (host, port, str(e)))
+      sys.exit(1)
+
 
   def send(self, msg):
     if self.connected == False:
