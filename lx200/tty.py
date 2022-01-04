@@ -12,7 +12,7 @@ class tty:
     try:
       self.ser = serial.Serial(port, baud)
     except serial.SerialException as e:
-      sys.stderr.write('ERROR: Could not open port: ' + port + '\n')
+      sys.stderr.write(str(e) + '\n')
       sys.exit(1)
 
   def open(self):
