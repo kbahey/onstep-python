@@ -7,11 +7,15 @@ Works over the following devices:
 - USB serial
 - WiFi (requires [OnStep's Smart Web Server](https://github.com/hjd1964/SmartWebServer))
 
+## Required Version and Modules
+This modules requires Python 3.x, and was tested with 3.8.10. 
+You also need either or both of:
 
-Requires Python 3.x, and Python Serial.
+- Python Serial if using USB serial.
+- Python Socket if using WiFi.
 
 Although this is written specifically for OnStep, it is mostly compatible with other telescope controllers
-that use the [LX200 Command Protcol](http://www.skymtn.com/mapug-astronomy/ragreiner/LX200Commands.html).
+that use the [LX200 Command Protocol](http://www.skymtn.com/mapug-astronomy/ragreiner/LX200Commands.html).
 
 ## Configuration
 Before using this API, you need to edit the examples/config.py.
