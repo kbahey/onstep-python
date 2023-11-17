@@ -11,9 +11,9 @@ alt   = '+10:00:00'
 azm_w = '200:00:00'
 azm_e = '160:00:00'
 
-num_iterations    = 20
+num_iterations    = 50
 poll_duration     = 10
-tracking_duration = 30
+tracking_duration = 10
 
 def print_status():
   status = '---'
@@ -50,7 +50,29 @@ def slew(target_alt, target_azm):
     time.sleep(1)
     return
 
+def start_tracking():
+  print('Starting tracking')
+  if config.scope.tracking_on() == '0':
+    print('Tracking failed')
+    time.sleep(WAIT_SECONDS)
+    return
+
+def return_home():
+  print('Returning to home postion')
+  if config.scope.return_home() == False:
+    print('Return Home command failed')
+    time.sleep(1)
+    return
+
+  while True:
+    config.scope.update_status()
+    if config.scope.is_home is True:
+      print('Successfully returned to home position')
+      return
+
 def stress_test():
+  start_tracking()
+
   count = 0
 
   while True:
@@ -96,3 +118,5 @@ def stress_test():
     # Scope now tracking
     print_status()
     time.sleep(tracking_duration)
+
+  return_home()
