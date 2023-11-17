@@ -7,7 +7,7 @@ from datetime import datetime
 import config
 
 # Configuration parameters
-alt   = '+10:00:00'
+alt   = '+05:00:00'
 azm_w = '200:00:00'
 azm_e = '160:00:00'
 
@@ -70,9 +70,7 @@ def return_home():
       print('Successfully returned to home position')
       return
 
-def stress_test():
-  start_tracking()
-
+def do_test():
   count = 0
 
   while True:
@@ -119,4 +117,10 @@ def stress_test():
     print_status()
     time.sleep(tracking_duration)
 
+def stress_test():
+  start_tracking()
+
+  do_test()
+
   return_home()
+
