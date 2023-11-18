@@ -8,12 +8,12 @@ import config
 
 # Configuration parameters
 alt   = '+05:00:00'
-azm_w = '200:00:00'
-azm_e = '160:00:00'
+azm_w = '190:00:00'
+azm_e = '170:00:00'
 
-num_iterations    = 50
+num_iterations    = 25
 poll_duration     = 10
-tracking_duration = 10
+tracking_duration = 5
 
 def print_status():
   status = '---'
